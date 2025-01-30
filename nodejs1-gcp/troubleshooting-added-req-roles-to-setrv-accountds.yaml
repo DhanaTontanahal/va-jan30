@@ -1,0 +1,76 @@
+gcloud projects add-iam-policy-binding voltaic-battery-447511-p5 --member="serviceAccount:855220130399-compute@developer.gserviceaccount.com" --role="roles/cloudsql.client"
+
+
+
+gcloud projects get-iam-policy voltaic-battery-447511-p5 --flatten="bindings[].members" --filter="bindings.members:855220130399-compute@developer.gserviceaccount.com" --format="table(bindings.role)"
+
+
+
+
+gcloud run services update SERVICE_NAME --project=voltaic-battery-447511-p5
+
+
+gcloud run services list --project=voltaic-battery-447511-p5
+
+
+gcloud run services update va-bank-api --project=voltaic-battery-447511-p5
+
+gcloud run services update va-bank-api-1 --project=voltaic-battery-447511-p5
+
+
+gcloud run services update va-bank-api --update-env-vars CLOUD_SQL_CONNECTION_NAME=voltaic-battery-447511-p5:us-central1:menu-logger-db --project=voltaic-battery-447511-p5
+
+gcloud run services update va-bank-api-1 --update-env-vars CLOUD_SQL_CONNECTION_NAME=voltaic-battery-447511-p5:us-central1:menu-logger-db --project=voltaic-battery-447511-p5
+
+
+gcloud services enable dialogflow.googleapis.com speech.googleapis.com
+
+
+gcloud projects add-iam-policy-binding voltaic-battery-447511-p5 --member="serviceAccount:855220130399-compute@developer.gserviceaccount.com" --role="roles/cloudsql.client"
+
+
+
+gcloud config set project voltaic-battery-447511-p5
+
+
+gcloud run services update va-bank-api --update-env-vars CLOUD_SQL_CONNECTION_NAME=voltaic-battery-447511-p5:us-central1:va-db --project=voltaic-battery-447511-p5
+
+gcloud run services update va-bank-api-1 --update-env-vars CLOUD_SQL_CONNECTION_NAME=voltaic-battery-447511-p5:us-central1:va-db --project=voltaic-battery-447511-p5
+
+
+
+docker build -t gcr.io/voltaic-battery-447511-p5/va-nodejs-app-1 .
+docker push gcr.io/voltaic-battery-447511-p5/va-nodejs-app-1
+
+gcloud run deploy va-nodejs-app-1 --image gcr.io/voltaic-battery-447511-p5/va-nodejs-app-1 --platform managed --region us-central1 --allow-unauthenticated
+
+
+gcloud run services update va-nodejs-app-1 --update-env-vars CLOUD_SQL_CONNECTION_NAME=voltaic-battery-447511-p5:us-central1:va-db --project=voltaic-battery-447511-p5
+
+gcloud run deploy va-nodejs-app \
+--image gcr.io/voltaic-battery-447511-p5/va-nodejs-app \
+--platform managed \
+--region us-central1 \
+--allow-unauthenticated \
+--set-env-vars INSTANCE_CONNECTION_NAME="voltaic-battery-447511-p5:us-central1:va-db",DB_USER="root",DB_PASS="yourpassword",DB_NAME="menu_logger",PORT=8080
+
+gcloud run deploy va-nodejs-app --image gcr.io/voltaic-battery-447511-p5/va-nodejs-app1 --platform managed --region us-central1 --allow-unauthenticated --service-account 855220130399-compute@developer.gserviceaccount.com
+
+
+
+--set-env-vars INSTANCE_CONNECTION_NAME="voltaic-battery-447511-p5:us-central1:va-db",DB_USER="root",DB_PASS="yourpassword",DB_NAME="menu_logger",PORT=8080
+
+
+
+gcloud run deploy va-nodejs-app2 --image gcr.io/voltaic-battery-447511-p5/va-nodejs-app2 --platform managed --region us-central1 --allow-unauthenticated --service-account 855220130399-compute@developer.gserviceaccount.com
+
+
+
+
+gcloud projects add-iam-policy-binding voltaic-battery-447511-p5 --member=serviceAccount:855220130399-compute@developer.gserviceaccount.com --role=roles/storage.admin
+
+gcloud storage buckets add-iam-policy-binding menu_logger_bucket --member=serviceAccount:855220130399-compute@developer.gserviceaccount.com --role=roles/storage.objectAdmin
+
+gcloud iam roles describe roles/storage.admin
+
+gsutil iam ch allUsers:objectViewer gs://YOUR_BUCKET_NAME
